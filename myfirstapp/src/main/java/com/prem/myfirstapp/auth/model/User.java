@@ -43,6 +43,9 @@ public class User {
     @Column(name = "approved_at")
     private OffsetDateTime approvedAt;
 
+    @Column(name = "created_at", insertable = false, updatable = false)
+    private OffsetDateTime createdAt;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_roles", schema = "auth",
             joinColumns = @JoinColumn(name = "user_id"),

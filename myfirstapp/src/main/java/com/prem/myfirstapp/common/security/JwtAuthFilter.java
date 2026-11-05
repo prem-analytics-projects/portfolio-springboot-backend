@@ -32,6 +32,24 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                         .map(r -> new SimpleGrantedAuthority("ROLE_" + r)).toList();
                 SecurityContextHolder.getContext().setAuthentication(
                         new UsernamePasswordAuthenticationToken(c.getSubject(), null, authorities));
+// debugging jwt
+                    var authentication =
+        new UsernamePasswordAuthenticationToken(
+                c.getSubject(),
+                null,
+                authorities
+        );
+
+SecurityContextHolder.getContext().setAuthentication(authentication);
+
+// Temporary debugging
+System.out.println("========== JWT DEBUG ==========");
+System.out.println("Subject: " + c.getSubject());
+System.out.println("JWT Roles: " + roles);
+System.out.println("Spring Authorities: " + authorities);
+System.out.println("Authenticated: " + authentication.isAuthenticated());
+System.out.println("================================");
+
             } catch (JwtException | IllegalArgumentException e) {
                 // invalid or expired token: stay unauthenticated
             }
